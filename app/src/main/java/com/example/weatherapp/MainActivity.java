@@ -1,11 +1,14 @@
 package com.example.weatherapp;
 
+import static com.example.weatherapp.WeatherType.fromWMO;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView weatherInfo;
     private EditText cityText;
+    ImageView currentWeatherIcon;
+
     public final OkHttpClient client = new OkHttpClient();
     String city;
 
@@ -48,8 +53,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
         weatherInfo = findViewById(R.id.weatherInfoText);
         cityText = findViewById(R.id.cityText);
+        currentWeatherIcon = findViewById(R.id.currentWeatherIcon);
+
 
 
         Button getWeatherButton = findViewById(R.id.getWeatherButton);
@@ -99,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
                                     // Handle the successful retrieval of weather data
                                     Log.i("myTag", "Current time: " + weatherResponse.getCurrent().getTime().toString());
                                     Log.i("myTag", "Current temp: " + weatherResponse.getCurrent().getTemperature());
+                                    runOnUiThread(() -> {
+                                        int code = weatherResponse.getCurrent().getWeatherCode();
+                                        currentWeatherIcon.setImageResource(fromWMO(code).getIconRes()); // Use appropriate resource ID
+                                    });
 //                                    Log.i("myTag", "Current humidity: " + weather.getHumidity());
 //                                    Log.i("myTag", "Current wind speed: " + weather.getWindSpeed());
                                     // Access daily weather data
