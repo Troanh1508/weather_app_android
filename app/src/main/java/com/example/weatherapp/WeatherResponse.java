@@ -22,11 +22,18 @@ public class WeatherResponse {
     public static class Daily {
         private List<String> time;
         private List<Double> uv_index_max;
+        public List<Double> temperature_2m_max;
+        private List<Double> temperature_2m_min;
 
+        public List<Double> getTemperature_2m_max() {
+            return temperature_2m_max;
+        }
+        public List<Double> getTemperature_2m_min() {
+            return temperature_2m_min;
+        }
         public List<String> getTime() {
             return time;
         }
-
         public List<Double> getUvIndexMax() {
             return uv_index_max;
         }

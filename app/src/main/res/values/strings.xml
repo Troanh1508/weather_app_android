@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="please_enter_city_name">Please enter city name</string>
+    <string name="temperature_format">%.0f °C</string>
 </resources>

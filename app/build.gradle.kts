@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.weatherapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -42,4 +42,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.okhttp)
     implementation(libs.gson)
+    implementation(libs.play.services.location)
+
 }
