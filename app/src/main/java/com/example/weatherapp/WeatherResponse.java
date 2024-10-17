@@ -24,7 +24,13 @@ public class WeatherResponse {
         private List<Double> uv_index_max;
         public List<Double> temperature_2m_max;
         private List<Double> temperature_2m_min;
+        private List<Integer> weather_code;
+        private List<Integer> precipitation_probability_max;
+        private List<Double> wind_speed_10m_max;
 
+        public List<Double> getWind_speed_10m_max() {
+            return wind_speed_10m_max;
+        }
         public List<Double> getTemperature_2m_max() {
             return temperature_2m_max;
         }
@@ -37,12 +43,28 @@ public class WeatherResponse {
         public List<Double> getUvIndexMax() {
             return uv_index_max;
         }
+        public List<Integer> getWeather_code() {
+            return weather_code;
+        }
+        public List<Integer> getPrecipitation_probability_max() {
+            return precipitation_probability_max;
+        }
     }
 
     public static class Hourly {
         private List<String> time;
         private List<Integer> precipitation_probability;
         private List<Double> uv_index;
+        private List<Double> temperature_2m;
+        private List<Integer> weather_code;
+
+        public List<Integer> getWeather_code() {
+            return weather_code;
+        }
+
+        public List<Double> getTemperature_2m() {
+            return temperature_2m;
+        }
 
         public List<String> getTime() {
             return time;
