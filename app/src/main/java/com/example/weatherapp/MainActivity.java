@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
     private EditText cityText;
     ImageView currentWeatherIcon;
 
-
-
     public final OkHttpClient client = new OkHttpClient();
     String city;
 
@@ -89,8 +87,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
             return insets;
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences("WeatherPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -186,6 +183,10 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
             if (addresses != null && !addresses.isEmpty()) {
 
                 String cityName = addresses.get(0).getAdminArea();
+                SharedPreferences sharedPreferences = getSharedPreferences("WeatherPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("city_name", cityName);
+                editor.apply();
 
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
@@ -329,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
 
     private void getWeatherData(double latitude, double longitude, WeatherCallback callback) {
         String url = "https://api.open-meteo.com/v1/forecast?latitude=" + latitude +
-                "&longitude=" + longitude + "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code,uv_index&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_probability_max,wind_speed_10m_max&timezone=Asia%2FBangkok";
+                "&longitude=" + longitude + "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code,uv_index&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_probability_max,wind_speed_10m_max&timezone=Asia%2FBangkok&forecast_days=14";
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -349,15 +350,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
 
 
                     WeatherResponse weatherResponse = gson.fromJson(responseData, WeatherResponse.class);
-//                        JSONObject weatherData = new JSONObject(responseData);
-//                        JSONObject currentWeatherData = (JSONObject) weatherData.get("current");
-//
-//                        String time = (String) currentWeatherData.get("time");
-//                        double temperature = (double) currentWeatherData.get("temperature_2m");
-//                        int relativeHumidity = (int) currentWeatherData.get("relative_humidity_2m");
-//                        double windSpeed = (double) currentWeatherData.get("wind_speed_10m");
-
-//                        Weather weather = new Weather(time, temperature, relativeHumidity, windSpeed);
                     callback.onSuccess(weatherResponse);
 
 
